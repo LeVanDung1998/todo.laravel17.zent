@@ -30,10 +30,10 @@
 
 
                         <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td>{{ $item }}</td>
-                            <td>23/8/2019</td>
-                            <td>23/8/2019</td>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->created_at }}</td>
+                            <td>{{ $item->updated_at }}</td>
                             <td>
                                 <a style="display: inline-block; width: 67px;" href="todos/{{ $key+1 }}" class="btn btn-warning">Show</a>
                                 <a style="display: inline-block; width: 67px;" href="todos/{todo}/edit" class="btn btn-success">Edit</a>

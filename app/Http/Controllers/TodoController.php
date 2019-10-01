@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Todo;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller {
@@ -11,7 +11,10 @@ class TodoController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$list = ['Học Laravel', 'Học Php', 'Học Css', 'Học Html', 'Học Javascript'];
+		//$list = ['Học Laravel', 'Học Php', 'Học Css', 'Học Html', 'Học Javascript'];
+		//$list = DB::table('todos')->get();
+		$list = Todo::get();
+		//dd($list);
 		return view('todo')->with('list', $list);
 	}
 
