@@ -3,7 +3,7 @@
 
     <!-- Copyright -->
     <div class="text-center">© 2019 Copyright:
-        <a href="#"> Nguyen Cong Hoan</a>
+        <a href="#"> Lê Văn Dũng</a>
     </div>
     <!-- Copyright -->
 

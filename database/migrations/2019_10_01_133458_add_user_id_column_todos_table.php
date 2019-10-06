@@ -12,7 +12,8 @@ class AddUserIdColumnTodosTable extends Migration {
 	 */
 	public function up() {
 		Schema::table('todos', function (Blueprint $table) {
-			$table->string('user_id')->after('id');
+			$table->integer('user_id')->after('id');
+			//
 		});
 	}
 

@@ -24,9 +24,12 @@ class TodosTableSeeder extends Seeder {
 		$faker = \Faker\Factory::create();
 		for ($i = 0; $i < 200; $i++) {
 			\DB::table('todos')->insert([
-				'user_id' => $faker->text(11),
+				'user_id' => $faker->numberBetween(1, 201),
 				'title' => $faker->text(20),
 				'content' => $faker->text(200),
+				'status' => 1,
+				'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+				'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
 			]);
 		}
 	}

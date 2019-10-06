@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('container')
-{{--     <!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Add todo</title>
+    <title>Edit todo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body> --}}
@@ -50,28 +50,14 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav> --}}
+
 <div class="container">
-    <form action="#" method="POST" class="" role="form">
-        @csrf
-        <div class="form-group">
-            <legend>Add todo</legend>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="todo">Todo:</label>
-            <input name="todo" type="text" class="form-control" id="todo" placeholder="Enter todo">
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="todo">Mô tả:</label>
-            <textarea name="todo" class="form-control"></textarea>
-        </div>
 
-
-        <div class="form-group">
-            <div class="">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
+    <h1>Name: {{ $item->name }}</h1>
+    <hr>
+    <div>
+        Email:{{ $item->email }}
+    </div>
 </div>
 {{-- <footer class="footer" style="background-color: #f7f7f7; height: 100px; padding-top: 30px">
 
@@ -86,6 +72,6 @@
 <!-- Latest compiled and minified CSS & JS -->
 <script src="//code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</html>
- --}}
+</html> --}}
+
 @endsection

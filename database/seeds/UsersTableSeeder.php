@@ -13,6 +13,8 @@ class UsersTableSeeder extends Seeder {
 			'name' => 'admin',
 			'email' => 'admin@gmail.com',
 			'password' => bcrypt('123456'),
+			'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+			'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
 		]);
 	}
 }
