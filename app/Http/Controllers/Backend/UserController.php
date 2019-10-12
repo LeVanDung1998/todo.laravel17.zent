@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -12,7 +12,17 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		return view('backend.users.index');
+		//$users = User::get();
+		//phân trang
+		$users = User::paginate(15);
+		//$users = User::simplePaginate(15);
+		//dd($users);
+		//
+		//$list = Todo::get();
+		//dd($list);
+		return view('backend.users.index')->with([
+			'users' => $users,
+		]);
 	}
 
 	/**

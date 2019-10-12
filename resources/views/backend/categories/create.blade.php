@@ -1,4 +1,7 @@
 @extends('backend.layout.master')
+@section('title')
+    Category
+@endsection
 @section('content-header')
     <!-- Content Header -->
     <div class="container-fluid">

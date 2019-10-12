@@ -16,5 +16,16 @@ class UsersTableSeeder extends Seeder {
 			'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
 			'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
 		]);
+
+		$faker = \Faker\Factory::create();
+		for ($i = 0; $i <= 50; $i++) {
+			\DB::table('users')->insert([
+				'name' => $faker->name,
+				'email' => $faker->email,
+				'password' => bcrypt('123456'),
+				'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+				'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+			]);
+		}
 	}
 }

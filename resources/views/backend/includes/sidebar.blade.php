@@ -33,7 +33,7 @@
 
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fas fa-shopping-basket"></i>
                             <p>
                                 Quản lý sản phẩm
@@ -49,7 +49,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/boxed.html" class="nav-link">
+                                <a href=" {{ route('backend.product.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>
@@ -73,7 +73,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
+                                <a href="{{ route('backend.categories.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>
@@ -96,7 +96,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link">
+                                <a href="{{ route('backend.user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>
