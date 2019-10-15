@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use App\Models\Product;
+use App\Models\UserInfo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,4 +37,12 @@ class User extends Authenticatable {
 	];
 
 	protected $table = 'users';
+
+	public function userInfo() {
+		return $this->hasOne(UserInfo::class);
+	}
+
+	public function products() {
+		return $this->hasMany(Product::class);
+	}
 }

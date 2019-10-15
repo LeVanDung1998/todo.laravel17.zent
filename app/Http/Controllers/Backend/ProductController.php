@@ -12,7 +12,9 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$products = Product::paginate(15);
+
+		//$products = Product::paginate(15);
+		$products = Product::with('category')->paginate(15);
 		//dd($products);
 		return view('backend.products.index')->with([
 			'products' => $products,
@@ -45,7 +47,11 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id) {
-		//
+		$product = Product::find($id);
+		//$products = Product::find($id);
+		//dd($product->category->name);
+		//dd($products->user->name);
+		//return view('backend.products.create')
 	}
 
 	/**

@@ -44,7 +44,13 @@ class CategoryController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id) {
-		//
+		$products = Category::find($id)->products()->where('status', 2)->get();
+		// $category = Category::find($id);
+		// $products = $category->products;
+		//dd($products);
+		foreach ($products as $product) {
+			echo $product->name . "<br>";
+		}
 	}
 
 	/**

@@ -22,18 +22,21 @@ Route::group([
 	Route::group(['prefix' => 'products'], function () {
 		Route::get('/', 'ProductController@index')->name('backend.product.index');
 		Route::get('/create', 'ProductController@create')->name('backend.product.create');
+		Route::get('/{id}', 'ProductController@show')->name('backend.product.show');
 	});
 
 	//Quản lý người dùng
 	Route::group(['prefix' => 'users'], function () {
 		Route::get('/', 'UserController@index')->name('backend.user.index');
 		Route::get('/create', 'UserController@create')->name('backend.user.create');
+		Route::get('/{id}', 'UserController@show')->name('backend.user.show');
 	});
 
 	//Quản lý danh mục sp
 	Route::group(['prefix' => 'categories'], function () {
 		Route::get('/', 'CategoryController@index')->name('backend.categories.index');
 		Route::get('/create', 'CategoryController@create')->name('backend.categories.create');
+		Route::get('/{id}', 'CategoryController@show')->name('backend.categories.show');
 	});
 });
 

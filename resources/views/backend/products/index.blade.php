@@ -48,6 +48,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>User</th>
                                 <th>Thời gian</th>
                                 <th>Status</th>
                                 <th>Mô tả</th>
@@ -58,6 +60,9 @@
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>
+                                        <td>{{ $product->category->name }}</td>
+                                        <td>{{ $product->user->name }}</td>
+
                                         <td>{{ $product->created_at }}</td>
                                         <td><span class="tag tag-success">Approved</span></td>
                                         <td>{{ $product->slug }}</td>
@@ -68,7 +73,7 @@
 
                             </tbody>
                         </table>
-                         {!! $products->links() !!}
+                          {!! $products->links() !!}
                     </div>
                     <!-- /.card-body -->
                 </div>
