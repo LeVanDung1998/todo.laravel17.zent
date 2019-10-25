@@ -46,8 +46,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên danh mục sản phẩm</th>
-                                <th>Thời gian</th>
-                                <th>Status</th>
+                                <th>Thời gian tạo</th>
+                                <th>Hành động</th>
                                 <th>Mô tả</th>
                             </tr>
                             </thead>
@@ -57,7 +57,16 @@
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->created_at }}</td>
-                                        <td><span class="tag tag-success">Approved</span></td>
+                                        <td>
+                                            {{-- <a style="display: inline-block; width: 67px;" href="{{ route('backend.categories.show',$category->id) }}" class="btn btn-success">Show</a> --}}
+                                            <a style="display: inline-block; width: 67px;" href="{{ route('backend.categories.edit',$category->id) }}" class="btn btn-warning">Edit</a>
+
+                                            <form style="display: inline-block;" action="{{ route('backend.categories.destroy', $category->id) }}" method="post" accept-charset="utf-8">
+                                            @csrf
+                                                {{method_field('delete')}}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
                                         <td>{{ $category->slug }}</td>
                                     </tr>
 

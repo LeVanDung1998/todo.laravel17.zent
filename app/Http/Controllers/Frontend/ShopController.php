@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Fontend;
+namespace App\Http\Controllers\Frontend;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller {
+class ShopController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		//$products = Product::paginate(15);
-		//dd($products);
-		return view('fontend.layout.master');
-
+		return view('frontend.shop');
 	}
 
 	/**
@@ -22,9 +20,9 @@ class ProductController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function create() {
-	// 	return view('backend.products.create');
-	// }
+	public function create() {
+		//
+	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -32,9 +30,9 @@ class ProductController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function store(Request $request) {
-	// 	//
-	// }
+	public function store(Request $request) {
+		//
+	}
 
 	/**
 	 * Display the specified resource.
@@ -42,9 +40,9 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function show($id) {
-	// 	//
-	// }
+	public function show($id) {
+		//
+	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -52,9 +50,9 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function edit($id) {
-	// 	//
-	// }
+	public function edit($id) {
+		//
+	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -63,9 +61,9 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function update(Request $request, $id) {
-	// 	//
-	// }
+	public function update(Request $request, $id) {
+		//
+	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -73,7 +71,7 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function destroy($id) {
-	// 	//
-	// }
+	public function destroy($id) {
+		//
+	}
 }

@@ -14,7 +14,7 @@
                     <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Lê Văn Dũng</a>
+                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
-                        <a href="./index.html" class="nav-link active">
+                        <a href="{{ route('backend.dashboard') }}" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -33,7 +33,7 @@
 
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-shopping-basket"></i>
                             <p>
                                 Quản lý sản phẩm
@@ -43,7 +43,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href=" {{ route('backend.product.create') }} " class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tạo mới</p>
                                 </a>
@@ -67,7 +67,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                <a href="{{ route('backend.categories.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tạo mới</p>
                                 </a>
