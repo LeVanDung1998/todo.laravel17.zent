@@ -22,50 +22,54 @@
 
 @section('content')
     <!-- Content -->
-<div class="container-fluid">
-        <!-- Main row -->
-        <div class="row">
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tạo mới người dùng</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Tên</label>
-                                <input type="text" class="form-control" id="" placeholder="Tên người dùng">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input type="email" class="form-control" id="" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Mật khẩu</label>
-                                <input type="password" class="form-control" id="">
-                            </div>
-                            <div class="form-group">
-                                <label>Quyền</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option>--Chọn quyền---</option>
-                                    <option>Admin</option>
-                                    <option>User</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-default">Huỷ bỏ</button>
-                            <button type="submit" class="btn btn-sucess">Tạo mới</button>
-                        </div>
-                    </form>
+ <form role="form" method="post" action="{{ route('backend.user.store') }}">
+    @csrf
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tên người dùng</label>
+                    <input type="text" name="name" class="form-control" id="" placeholder="Điền tên người dùng">
                 </div>
+
+                 @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+
+               <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="text" name="email" class="form-control" id="" placeholder="Điền email">
+                </div>
+
+                @error('email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mật khẩu</label>
+                    <input type="text" name="password" class="form-control" id="" placeholder="Điền mật khẩu">
+                </div>
+
+                 @error('password')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+
+
+                {{-- <div class="form-group">
+                    <label for="exampleInputEmail1">Depth</label>
+                    <input type="text" name="depth" class="form-control" id="" placeholder="Điền path danh mục">
+                </div>
+
+                 @error('depth')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror --}}
             </div>
-        </div>
-        <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+        <a href="{{ route('backend.user.index') }}" class="btn btn-default">Huỷ bỏ</a>
+        <button type="submit" class="btn btn-success">Tạo mới</button>
+    </div>
+</form>
 @endsection

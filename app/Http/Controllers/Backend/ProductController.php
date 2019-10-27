@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 //use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
-use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
-//use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller {
 	/**
@@ -81,48 +79,60 @@ class ProductController extends Controller {
 		// ]);
 
 		// if ($request->hasFile('images')) {
-		// 	//dd('co file');
-		// 	//$file = $request->file('image');
-		// 	// Lưu vào trong thư mục storage ng dùng k truy câp k xem đc từ web
-		// 	//$path = $file->store('images');
-		// 	// cachs 2 ng dùng có thể xem
-		// 	//$file = $request->file('image');
-		// 	//$name = $file->getClientOriginalName();
-		// 	//$file->move('image_2', $name);
-		// 	$images = $request->file('images');
-		// 	foreach ($images as $image) {
-		// 		$name = $file->getClientOriginalName();
-		// 		$file->move('image_10', $name);
-		// 		//$image->store('image');
-		// 	}
-		// 	dd(2);
+		//  //dd('co file');
+		//  //$file = $request->file('image');
+		//  // Lưu vào trong thư mục storage ng dùng k truy câp k xem đc từ web
+		//  //$path = $file->store('images');
+		//  // cachs 2 ng dùng có thể xem
+		//  //$file = $request->file('image');
+		//  //$name = $file->getClientOriginalName();
+		//  //$file->move('image_2', $name);
+		//  $images = $request->file('images');
+		//  foreach ($images as $image) {
+		//      $name = $file->getClientOriginalName();
+		//      $file->move('image_10', $name);
+		//      //$image->store('image');
+		//  }
+		//  dd(2);
 		// } else {
-		// 	dd('khong co file');
+		//  dd('khong co file');
 		// }
 
 		// validate với form
+		$images = $request->image;
+
+		$rules = [
+			'image.*' => 'max:2000|image',
+			'image' => 'required',
+		];
+
+		$messages = [
+			'image.required' => ':attribute không được bỏ trống.',
+			'image.*.max' => ':attribute không được quá 2MB.',
+			'image.*.image' => ':attribute không đúng định dạng',
+		];
 
 		// $validator = Validator::make($request->all(),
-		// 	[
-		// 		'name' => 'required|min:10|max:255',
-		// 		'origin_price' => 'required|numeric',
-		// 		'sale_price' => 'required|numeric',
-		// 	],
-		// 	[
-		// 		'required' => ':attribute không được để trống',
-		// 		'min' => ':attribute không được nhỏ hơn :min',
-		// 		'max' => ':attribute không được lớn hơn :max',
-		// 	],
-		// 	[
-		// 		'name' => 'Tên sản phẩm',
-		// 		'origin_price' => 'Giá gốc',
-		// 		'sale_price' => 'Giá bán',
-		// 	]
+		//  [
+		//      'name' => 'required|min:10|max:255',
+		//      'origin_price' => 'required|numeric',
+		//      'sale_price' => 'required|numeric',
+		//  ],
+		//  [
+		//      'required' => ':attribute không được để trống',
+		//      'min' => ':attribute không được nhỏ hơn :min',
+		//      'max' => ':attribute không được lớn hơn :max',
+		//  ],
+		//  [
+		//      'name' => 'Tên sản phẩm',
+		//      'origin_price' => 'Giá gốc',
+		//      'sale_price' => 'Giá bán',
+		//  ]
 		// );
 		// if ($validator->errors()) {
-		// 	return back()
-		// 		->withErrors($validator)
-		// 		->withInput();
+		//  return back()
+		//      ->withErrors($validator)
+		//      ->withInput();
 		// }
 
 		// validate  mặc định
@@ -133,27 +143,60 @@ class ProductController extends Controller {
 			'sale_price' => ['required', 'numeric'],
 		]);
 
-		$info_images = [];
+		// $info_images = [];
+		// if ($request->hasFile('images')) {
+		//  $images = $request->file('images');
+		//  foreach ($images as $key => $image) {
+		//      // $id = $key;
+		//      //$username = $key;
+		//      //$namefile = $id . '.png'; // đặt tên cho mỗi ảnh theo key
+		//      $namefile = $image->getClientOriginalName();
+		//      $url = 'storage/' . $namefile;
+		//      Storage::disk('public')->putFileAs('products', $image, $namefile);
+
+		//      $info_images[] = [
+		//          'url' => $url,
+		//          'name' => $namefile,
+		//      ];
+
+		//      //$image= new Image();
+		//  }
+		//  //dd(2);
+		// } else {
+		//  dd('khong co file');
+		// }
+		//
 		if ($request->hasFile('images')) {
-			$images = $request->file('images');
-			foreach ($images as $key => $image) {
-				// $id = $key;
-				//$username = $key;
-				//$namefile = $id . '.png'; // đặt tên cho mỗi ảnh theo key
-				$namefile = $image->getClientOriginalName();
-				$url = 'storage/' . $namefile;
-				Storage::disk('public')->putFileAs('products', $image, $namefile);
-
-				$info_images[] = [
-					'url' => $url,
-					'name' => $namefile,
-				];
-
-				//$image= new Image();
+			$attributes = [];
+			foreach ($images as $key => $value) {
+				$name_image = $value->getClientOriginalName();
+				$attribute['image.' . $key] = $name_image;
 			}
-			//dd(2);
 		} else {
-			dd('khong co file');
+			$attributes = [
+				'image' => 'Ảnh',
+			];
+		}
+
+		$validator = Validator::make($request->all(), $rules, $messages, $attributes);
+		if ($validator->fails()) {
+			return back()
+				->withErrors($validator)
+				->withInput();
+		}
+
+		$path_images = [];
+
+		foreach ($images as $image) {
+			//$img = new Image();
+			$type_image = $image->getClientOriginalExtension();
+			$name_image = $image->getClientOriginalName();
+			$time = time();
+			// $img->path = $image['url'];
+			// $img->product_id = $product->id;
+			// $img->save();
+			$path = $image->storeAS('public/products', $name_image . '_' . $time . '.' . $type_image);
+			$path_images = $path;
 		}
 
 		$product = new Product();
@@ -167,13 +210,13 @@ class ProductController extends Controller {
 		$product->user_id = Auth::user()->id;
 		$product->save();
 
-		foreach ($info_images as $image) {
-			$img = new Image();
-			$img->name = $image['name'];
-			$img->path = $image['url'];
-			$img->product_id = $product->id;
-			$img->save();
-		}
+		// foreach ($info_images as $image) {
+		// 	$img = new Image();
+		// 	$img->name = $image['name'];
+		// 	$img->path = $image['url'];
+		// 	$img->product_id = $product->id;
+		// 	$img->save();
+		// }
 
 		return redirect()->route('backend.product.index');
 	}

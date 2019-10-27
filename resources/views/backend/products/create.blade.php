@@ -83,7 +83,7 @@
             <label for="exampleInputFile">Hình ảnh sản phẩm</label>
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile"  name="images[]" multiple>
+                    <input type="file" class="custom-file-input" id="exampleInputFile"  name="image[]" multiple>
                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                 </div>
                 <div class="input-group-append">
@@ -91,6 +91,16 @@
                 </div>
             </div>
         </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         <div class="form-group">
             <label>Trạng thái sản phẩm</label>
             <select name="status" class="form-control select2" style="width: 100%;">

@@ -36,7 +36,11 @@ Route::group([
 	Route::group(['prefix' => 'users'], function () {
 		Route::get('/', 'UserController@index')->name('backend.user.index');
 		Route::get('/create', 'UserController@create')->name('backend.user.create');
-		Route::get('/{id}', 'UserController@show')->name('backend.user.show');
+		// Route::get('/{id}', 'UserController@show')->name('backend.user.show');
+		Route::post('/', 'UserController@store')->name('backend.user.store');
+		Route::get('/{id}/edit', 'UserController@edit')->name('backend.user.edit');
+		Route::put('/{id}update', 'UserController@update')->name('backend.user.update');
+		Route::delete('/{id}delete', 'UserController@destroy')->name('backend.user.destroy');
 	});
 
 	//Quản lý danh mục sp

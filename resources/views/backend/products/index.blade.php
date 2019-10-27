@@ -65,14 +65,15 @@
 
                                         <td>{{ $product->created_at }}</td>
                                         <td>
-                                             <a style="display: inline-block; width: 67px;" href="{{ route('backend.product.show',$product->id) }}" class="btn btn-success">Show</a>
+                                            <a style="display: inline-block; width: 67px;" href="{{ route('backend.product.show',$product->id) }}" class="btn btn-success">Show</a>
                                             <a style="display: inline-block; width: 67px;" href="{{ route('backend.product.edit',$product->id) }}" class="btn btn-warning">Edit</a>
 
                                             <form style="display: inline-block;" action="{{ route('backend.product.destroy', $product->id) }}" method="post" accept-charset="utf-8">
-                                @csrf
-                                {{method_field('delete')}}
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                                                @csrf
+                                                {{method_field('delete')}}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
                                         <td>{{ $product->slug }}</td>
                                     </tr>
                                 @endforeach
