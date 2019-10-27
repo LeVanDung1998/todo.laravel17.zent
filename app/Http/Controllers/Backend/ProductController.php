@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 //use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -166,11 +167,14 @@ class ProductController extends Controller {
 		//  dd('khong co file');
 		// }
 		//
+
+		$info_images = [];
 		if ($request->hasFile('images')) {
 			$attributes = [];
 			foreach ($images as $key => $value) {
 				$name_image = $value->getClientOriginalName();
 				$attribute['image.' . $key] = $name_image;
+
 			}
 		} else {
 			$attributes = [
@@ -186,7 +190,7 @@ class ProductController extends Controller {
 		}
 
 		$path_images = [];
-
+		$info_images = [];
 		foreach ($images as $image) {
 			//$img = new Image();
 			$type_image = $image->getClientOriginalExtension();
@@ -197,6 +201,12 @@ class ProductController extends Controller {
 			// $img->save();
 			$path = $image->storeAS('public/products', $name_image . '_' . $time . '.' . $type_image);
 			$path_images = $path;
+			$info_images[] = [
+				'name' => $name_image,
+				'url' => $path_images,
+			];
+
+			dd($info_images);
 		}
 
 		$product = new Product();
@@ -210,13 +220,14 @@ class ProductController extends Controller {
 		$product->user_id = Auth::user()->id;
 		$product->save();
 
-		// foreach ($info_images as $image) {
-		// 	$img = new Image();
-		// 	$img->name = $image['name'];
-		// 	$img->path = $image['url'];
-		// 	$img->product_id = $product->id;
-		// 	$img->save();
-		// }
+		foreach ($info_images as $image) {
+			$img = new Image();
+			$img->name_image = $image['name'];
+			$img->path_images = $image['url'];
+			$img->product_id = $product->id;
+			$img->save();
+
+		}
 
 		return redirect()->route('backend.product.index');
 	}
