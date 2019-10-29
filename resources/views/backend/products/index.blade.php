@@ -60,8 +60,22 @@
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>
-                                        <td>{{ $product->category->name }}</td>
-                                        <td>{{ $product->user->name }}</td>
+
+                                        <td>
+                                        @if (isset ($product->category))
+                                            {{ $product->category->name }}
+                                             @else
+                                            Không có
+                                        @endif
+                                        </td>
+
+                                        <td>
+                                        @if (isset ($product->user))
+                                            {{ $product->user->name }}
+                                            @else
+                                            Không có
+                                        @endif
+                                        </td>
 
                                         <td>{{ $product->created_at }}</td>
                                         <td>

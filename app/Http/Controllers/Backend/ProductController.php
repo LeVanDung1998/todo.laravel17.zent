@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,9 +23,19 @@ class ProductController extends Controller {
 		//$products = Product::paginate(15);
 		$products = Product::with('category')->orderBy('id', 'desc')->paginate(15);
 		//dd($products);
-		return view('backend.products.index')->with([
-			'products' => $products,
-		]);
+		//
+		if (Gate::allows('index-product', $products)) {
+
+			return view('backend.products.index')->with([
+				'products' => $products,
+			]);
+
+		} else {
+			dd('bạn k có quyền xem danh sách sản phẩm');
+		}
+		// return view('backend.products.index')->with([
+		//  'products' => $products,
+		// ]);
 	}
 
 	/**
@@ -34,9 +45,19 @@ class ProductController extends Controller {
 	 */
 	public function create() {
 		$categories = Category::get();
-		return view('backend.products.create')->with([
-			'categories' => $categories,
-		]);
+
+		if (Gate::allows('create-product', $categories)) {
+
+			return view('backend.products.create')->with([
+				'categories' => $categories,
+			]);
+
+		} else {
+			dd('bạn k có quyền tạo sản phẩm');
+		}
+		// return view('backend.products.create')->with([
+		// 	'categories' => $categories,
+		// ]);
 	}
 
 	/**
@@ -168,7 +189,6 @@ class ProductController extends Controller {
 		// }
 		//
 
-		$info_images = [];
 		if ($request->hasFile('images')) {
 			$attributes = [];
 			foreach ($images as $key => $value) {
@@ -206,8 +226,8 @@ class ProductController extends Controller {
 				'url' => $path_images,
 			];
 
-			dd($info_images);
 		}
+		//dd($info_images);
 
 		$product = new Product();
 		$product->name = $request->get('name');
@@ -222,8 +242,8 @@ class ProductController extends Controller {
 
 		foreach ($info_images as $image) {
 			$img = new Image();
-			$img->name_image = $image['name'];
-			$img->path_images = $image['url'];
+			$img->name = $image['name'];
+			$img->path = $image['url'];
 			$img->product_id = $product->id;
 			$img->save();
 
@@ -243,6 +263,8 @@ class ProductController extends Controller {
 		//$products = Product::find($id);
 		//dd($product->category->name);
 		//dd($products->user->name);
+		//
+
 		return view('backend.products.show')->with('item', $item);
 	}
 
@@ -255,10 +277,30 @@ class ProductController extends Controller {
 	public function edit($id) {
 		// Lấy dữ liệu với $id
 		$item = Product::find($id);
+		$user = Auth::user();
+		// $author = $this->authorize('update', $item);
+		// if ($user->authorize('update', $item)) {
+		//  return view('backend.products.edit')->with('item', $item);
+		// } else {
+		//  dd('bạn k có quyền edit');
+		// }
+		//dd($user, $item);
 
-		//dd($item);
-		// Gọi đến view edit
-		return view('backend.products.edit')->with('item', $item);
+		// if (Gate::allows('update-product', $item)) {
+
+		//  return view('backend.products.edit')->with('item', $item);
+
+		// } else {
+		//  dd('bạn k có quyền edit');
+		// }
+
+		if ($user->can('update', $item)) {
+			return view('backend.products.edit')->with('item', $item);
+		} else {
+			dd('bạn k có quyền edit');
+		}
+
+		//return view('backend.products.edit')->with('item', $item);
 	}
 
 	/**
