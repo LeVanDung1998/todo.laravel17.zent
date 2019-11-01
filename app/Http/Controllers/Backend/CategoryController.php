@@ -88,6 +88,15 @@ class CategoryController extends Controller {
 		//dd($category->name);
 		$category->save();
 
+		$save = $category->save();
+
+		if ($save) {
+			$request->session()->flash('success', 'Tạo danh mục sản phẩm thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail', 'Tạo danh mục sản phẩm thất bại' . '<br>');
+		}
+
 		return redirect()->route('backend.categories.index');
 	}
 
@@ -146,6 +155,15 @@ class CategoryController extends Controller {
 		// Lưu dữ liệu
 		$category->save();
 		//Chuyển hướng đến trang danh sách
+
+		$save = $category->save();
+
+		if ($save) {
+			$request->session()->flash('success_update', 'Cập nhật danh mục sản phẩm thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail_update', 'Cập nhật danh mục sản phẩm thất bại' . '<br>');
+		}
 		return redirect()->route('backend.categories.index');
 	}
 

@@ -66,6 +66,15 @@ class UserController extends Controller {
 		//dd($user);
 		$user->save();
 
+		$save = $user->save();
+
+		if ($save) {
+			$request->session()->flash('success', 'Tạo user thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail', 'Tạo user thất bại' . '<br>');
+		}
+
 		return redirect()->route('backend.user.index');
 	}
 
@@ -119,6 +128,15 @@ class UserController extends Controller {
 		$user->email = $email;
 
 		$user->save();
+
+		$save = $user->save();
+
+		if ($save) {
+			$request->session()->flash('success_update', 'Cập nhật user thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail_update', 'Cập nhật user thất bại' . '<br>');
+		}
 		//Chuyển hướng đến trang danh sách
 		return redirect()->route('backend.user.index');
 	}

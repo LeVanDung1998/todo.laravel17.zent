@@ -24,6 +24,11 @@ class ProductController extends Controller {
 		$products = Product::with('category')->orderBy('id', 'desc')->paginate(15);
 		//dd($products);
 		//
+		//$request->session()->keep(['username', 'email']);
+		// session()->reflash();
+		//session()->forget('key');
+
+		//session()->flush();
 		if (Gate::allows('index-product', $products)) {
 
 			return view('backend.products.index')->with([
@@ -56,7 +61,7 @@ class ProductController extends Controller {
 			dd('bạn k có quyền tạo sản phẩm');
 		}
 		// return view('backend.products.create')->with([
-		// 	'categories' => $categories,
+		//  'categories' => $categories,
 		// ]);
 	}
 
@@ -212,13 +217,10 @@ class ProductController extends Controller {
 		$path_images = [];
 		$info_images = [];
 		foreach ($images as $image) {
-			//$img = new Image();
+
 			$type_image = $image->getClientOriginalExtension();
 			$name_image = $image->getClientOriginalName();
 			$time = time();
-			// $img->path = $image['url'];
-			// $img->product_id = $product->id;
-			// $img->save();
 			$path = $image->storeAS('public/products', $name_image . '_' . $time . '.' . $type_image);
 			$path_images = $path;
 			$info_images[] = [
@@ -247,6 +249,22 @@ class ProductController extends Controller {
 			$img->product_id = $product->id;
 			$img->save();
 
+		}
+
+		$save_img = $img->save();
+		$save = $product->save();
+
+		if ($save) {
+			$request->session()->flash('success', 'Tạo sản phẩm thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail', 'Tạo sản phẩm thất bại' . '<br>');
+		}
+
+		if ($save_img) {
+			$request->session()->flash('success_img', 'Tạo ảnh sản phẩm thành công' . '<br>');
+		} else {
+			$request->session()->flash('success_img_fail', 'Tạo ảnh sản phẩm không thành công' . '<br>');
 		}
 
 		return redirect()->route('backend.product.index');
@@ -331,6 +349,14 @@ class ProductController extends Controller {
 		// Lưu dữ liệu
 		$product->save();
 		//Chuyển hướng đến trang danh sách
+
+		$save = $product->save();
+		if ($save) {
+			$request->session()->flash('success_update', 'Cập nhật sản phẩm thành công' . '<br>');
+
+		} else {
+			$request->session()->flash('fail_update', 'Cập nhật sản phẩm thất bại' . '<br>');
+		}
 		return redirect()->route('backend.product.index');
 	}
 

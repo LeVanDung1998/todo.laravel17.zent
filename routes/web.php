@@ -78,3 +78,8 @@ Route::group([
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('set', 'SessionController@set');
+Route::get('get', 'SessionController@get');
+Route::get('get2', 'SessionController@get2');
+Route::get('setCookie', 'CookieController@set');
+Route::get('getCookie', 'CookieController@get');

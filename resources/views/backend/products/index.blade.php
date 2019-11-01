@@ -9,6 +9,8 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">Danh sách sản phẩm</h1>
             </div><!-- /.col -->
+
+
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -18,6 +20,31 @@
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
+
+            @if (session()->has('success'))
+                <span style="color: green">{!! session()->get('success') !!}</span>
+            @endif
+
+            @if (session()->has('success_img_fail'))
+                <span style="color: green">{!! session()->get('success_img_fail') !!}</span>
+            @endif
+
+            @if (session()->has('success_img'))
+                <span style="color: green">{!! session()->get('success_img') !!}</span>
+            @endif
+
+
+            @if (session()->has('fail'))
+                <span style="color: red">{!! session()->get('fail') !!}</span>
+            @endif
+
+             @if (session()->has('success_update'))
+                <span style="color: green">{!! session()->get('success_update') !!}</span>
+            @endif
+
+             @if (session()->has('fail_update'))
+                <span style="color: red">{!! session()->get('fail_update') !!}</span>
+            @endif
 @endsection
 @section('content')
 
