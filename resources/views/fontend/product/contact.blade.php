@@ -1,19 +1,11 @@
-@extends('frontend.layouts.master')
-
-@section('title')
-Contact
+@extends('fontend.layouts.master')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="/fontend/styles/bootstrap4/bootstrap.min.css">
+    <link href="/fontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/fontend/styles/contact_styles.css">
+    <link rel="stylesheet" type="text/css" href="/fontend/styles/contact_responsive.css">
 @endsection
-
-@section('link-css')
-<link rel="stylesheet" type="text/css" href="/frontend/styles/bootstrap4/bootstrap.min.css">
-<link href="/frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="/frontend/styles/contact_styles.css">
-<link rel="stylesheet" type="text/css" href="/frontend/styles/contact_responsive.css">">
-@endsection
-
 @section('content')
-<!-- Contact Info -->
-
     <div class="contact_info">
         <div class="container">
             <div class="row">
@@ -22,7 +14,7 @@ Contact
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="/frontend/images/contact_1.png" alt=""></div>
+                            <div class="contact_info_image"><img src="/fontend/images/contact_1.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Phone</div>
                                 <div class="contact_info_text">+38 068 005 3570</div>
@@ -31,7 +23,7 @@ Contact
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="/frontend/images/contact_2.png" alt=""></div>
+                            <div class="contact_info_image"><img src="/fontend/images/contact_2.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Email</div>
                                 <div class="contact_info_text">fastsales@gmail.com</div>
@@ -40,7 +32,7 @@ Contact
 
                         <!-- Contact Item -->
                         <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="contact_info_image"><img src="/frontend/images/contact_3.png" alt=""></div>
+                            <div class="contact_info_image"><img src="/fontend/images/contact_3.png" alt=""></div>
                             <div class="contact_info_content">
                                 <div class="contact_info_title">Address</div>
                                 <div class="contact_info_text">10 Suffolk at Soho, London, UK</div>
@@ -92,18 +84,42 @@ Contact
             </div>
         </div>
     </div>
-@endsection
 
-@section('link-js')
-<script src="/frontend/js/jquery-3.3.1.min.js"></script>
-<script src="/frontend/styles/bootstrap4/popper.js"></script>
-<script src="/frontend/styles/bootstrap4/bootstrap.min.js"></script>
-<script src="/frontend/plugins/greensock/TweenMax.min.js"></script>
-<script src="/frontend/plugins/greensock/TimelineMax.min.js"></script>
-<script src="/frontend/plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="/frontend/plugins/greensock/animation.gsap.min.js"></script>
-<script src="/frontend/plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="/frontend/plugins/easing/easing.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-<script src="/frontend/js/contact_custom.js"></script>
+    <!-- Newsletter -->
+
+    <div class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
+                        <div class="newsletter_title_container">
+                            <div class="newsletter_icon"><img src="/fontend/images/send.png" alt=""></div>
+                            <div class="newsletter_title">Sign up for Newsletter</div>
+                            <div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
+                        </div>
+                        <div class="newsletter_content clearfix">
+                            <form action="#" class="newsletter_form">
+                                <input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
+                                <button class="newsletter_button">Subscribe</button>
+                            </form>
+                            <div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    <script src="/fontend/js/jquery-3.3.1.min.js"></script>
+    <script src="styles/bootstrap4/popper.js"></script>
+    <script src="styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/fontend/plugins/greensock/TweenMax.min.js"></script>
+    <script src="/fontend/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="/fontend/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="/fontend/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="/fontend/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="/fontend/plugins/easing/easing.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+    <script src="/fontend/js/contact_custom.js"></script>
 @endsection

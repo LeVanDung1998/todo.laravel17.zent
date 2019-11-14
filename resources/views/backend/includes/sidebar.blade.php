@@ -15,6 +15,7 @@
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    <a href="#" class="d-block" style="color: green">{{ Auth::user()->email }}</a>
                 </div>
             </div>
 
@@ -38,7 +39,7 @@
                             <p>
                                 Quản lý sản phẩm
                                 <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">6</span>
+                                <span class="badge badge-info right">2</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -63,6 +64,7 @@
                             <p>
                                 Quản lý danh mục
                                 <i class="right fas fa-angle-left"></i>
+                                <span class="badge badge-info right">2</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -86,6 +88,7 @@
                             <p>
                                 Quản lý người dùng
                                 <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -97,6 +100,30 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('backend.user.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Danh sách</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i style="margin-right: 15px;" class="fa fa-book" aria-hidden="true"></i>
+                            <p>
+                                Quản lý slide
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href=" {{ route('backend.slide.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Tạo mới</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('backend.slide.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>

@@ -7,7 +7,7 @@
 <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Tạo sản phẩm</h1>
+                <h1 class="m-0 text-dark">Cập nhật danh mục</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -37,9 +37,6 @@
             @csrf
             <input name="_method" type="hidden" value="PUT">
             {{--{{ method_field('PUT') }}--}}
-            <div class="form-group">
-                <legend>Cập nhật danh mục</legend>
-            </div>
             <div class="form-group">
                 <label class="control-label" for="todo">Tên danh mục:</label>
                 <input name="name" type="text" value="{{ $item->name }}" class="form-control" id="todo" placeholder="Enter todo">

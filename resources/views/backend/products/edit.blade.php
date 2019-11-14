@@ -1,13 +1,13 @@
 @extends('backend.layout.master')
 @section('title')
-    Product
+    Edit Product
 @endsection
 @section('content-header')
 <!-- Content Header -->
 <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Tạo sản phẩm</h1>
+                <h1 class="m-0 text-dark">Cập nhật sản phẩm</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -33,17 +33,36 @@
                 </ul>
             </div>
         @endif --}}
-        <form action="{{ route('backend.product.update', $item->id) }}" method="POST" class="" role="form">
+        <form action="{{ route('backend.product.update', $item->id) }}" method="POST" class="" role="form" enctype="multipart/form-data">
             @csrf
             <input name="_method" type="hidden" value="PUT">
             {{--{{ method_field('PUT') }}--}}
             <div class="form-group">
-                <legend>Cập nhật sản phẩm</legend>
-            </div>
-            <div class="form-group">
                 <label class="control-label" for="todo">Tên sản phẩm:</label>
                 <input name="name" type="text" value="{{ $item->name }}" class="form-control" id="todo" placeholder="Enter todo">
             </div>
+            <div class="form-group">
+                <label class="control-label" for="todo">Ảnh sản phẩm:</label><br>
+                {{-- @if ($images=='')
+                    sản phẩm này không có ảnh
+                @else --}}
+                @foreach ($images as $image)
+                    <img width="200px"  src="/storage/{{ $image->path }}"  alt="" style="margin-right: 30px">
+                @endforeach
+            </div>
+
+             <div class="form-group">
+            <label for="exampleInputFile">Thêm mới ảnh nếu muốn</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile"  name="image[]" multiple>
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                </div>
+            </div>
+        </div>
 
             <div class="form-group">
                 <label class="control-label" for="todo">Slug sản phẩm:</label>

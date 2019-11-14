@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 @section('title')
-    User
+    Create User
 @endsection
 @section('content-header')
 <!-- Content Header -->

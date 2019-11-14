@@ -74,13 +74,37 @@
                                         <td>{{ $category->created_at }}</td>
                                         <td>
                                             {{-- <a style="display: inline-block; width: 67px;" href="{{ route('backend.categories.show',$category->id) }}" class="btn btn-success">Show</a> --}}
-                                            <a style="display: inline-block; width: 67px;" href="{{ route('backend.categories.edit',$category->id) }}" class="btn btn-warning">Edit</a>
+                                            <a style="display: inline-block; width: 40px;" href="{{ route('backend.categories.edit',$category->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 
-                                            <form style="display: inline-block;" action="{{ route('backend.categories.destroy', $category->id) }}" method="post" accept-charset="utf-8">
+                                           {{--  <form style="display: inline-block;" action="{{ route('backend.categories.destroy', $category->id) }}" method="post" accept-charset="utf-8">
                                             @csrf
                                                 {{method_field('delete')}}
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form> --}}
+                                             <a class="btn btn-danger" style="display: inline-block; width: 40px;" href="{{ route('backend.categories.destroy', $category->id) }}" data-toggle="modal" data-target="#exampleModalCenter-{{$category->id}}"><i class="fas fa-trash-alt"></i></a>
+                                            <div class="modal fade" id="exampleModalCenter-{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle" style="display: inline-block;">Bạn có chắc chắn xóa ko?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                             <h4>Bạn chắc chắn muốn xóa?</h4>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <form style="display: inline-block;" action="{{ route('backend.categories.destroy', $category->id) }}" method="post" accept-charset="utf-8">
+                                                                @csrf
+                                                                {{method_field('delete')}}
+                                                                <button type="submit" class="btn btn-danger">Đồng ý</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                            </div>
                                         </td>
                                         <td>{{ $category->slug }}</td>
                                     </tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 //use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller {
 	/**
@@ -71,7 +71,7 @@ class ProductController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request) {
+	public function store(StoreProductRequest $request) {
 		// lưu file
 		// Storage::disk('public')->put('test.txt', 'hoan');
 		// Storage::put('test.txt', 'hoan');
@@ -164,11 +164,11 @@ class ProductController extends Controller {
 
 		// validate  mặc định
 
-		$validatedData = $request->validate([
-			'name' => ['required', 'min:5', 'max:255'],
-			'origin_price' => ['required', 'numeric'],
-			'sale_price' => ['required', 'numeric'],
-		]);
+		// $validatedData = $request->validate([
+		// 	'name' => ['required', 'min:5', 'max:255'],
+		// 	'origin_price' => ['required', 'numeric'],
+		// 	'sale_price' => ['required', 'numeric'],
+		// ]);
 
 		// $info_images = [];
 		// if ($request->hasFile('images')) {
@@ -207,12 +207,12 @@ class ProductController extends Controller {
 			];
 		}
 
-		$validator = Validator::make($request->all(), $rules, $messages, $attributes);
-		if ($validator->fails()) {
-			return back()
-				->withErrors($validator)
-				->withInput();
-		}
+		// $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+		// if ($validator->fails()) {
+		// 	return back()
+		// 		->withErrors($validator)
+		// 		->withInput();
+		// }
 
 		$path_images = [];
 		$info_images = [];
@@ -220,8 +220,9 @@ class ProductController extends Controller {
 
 			$type_image = $image->getClientOriginalExtension();
 			$name_image = $image->getClientOriginalName();
+			$name_img = pathinfo($name_image, PATHINFO_FILENAME);
 			$time = time();
-			$path = $image->storeAS('public/products', $name_image . '_' . $time . '.' . $type_image);
+			$path = $image->storeAS('products', $name_img . '_' . $time . '.' . $type_image);
 			$path_images = $path;
 			$info_images[] = [
 				'name' => $name_image,
@@ -278,12 +279,25 @@ class ProductController extends Controller {
 	 */
 	public function show($id) {
 		$item = Product::find($id);
+		$product = Product::with('images')->find($id);
+
+		$images = $product->images;
+		// foreach ($images as $image) {
+		// 	dd($image);
+		// }
+
+		// dd(1);
+		//dd($product->images->path);
+		//for
 		//$products = Product::find($id);
 		//dd($product->category->name);
 		//dd($products->user->name);
 		//
 
-		return view('backend.products.show')->with('item', $item);
+		return view('backend.products.show')->with([
+			'item' => $item,
+			'images' => $images,
+		]);
 	}
 
 	/**
@@ -296,6 +310,8 @@ class ProductController extends Controller {
 		// Lấy dữ liệu với $id
 		$item = Product::find($id);
 		$user = Auth::user();
+		$product = Product::with('images')->find($id);
+		$images = $product->images;
 		// $author = $this->authorize('update', $item);
 		// if ($user->authorize('update', $item)) {
 		//  return view('backend.products.edit')->with('item', $item);
@@ -313,7 +329,10 @@ class ProductController extends Controller {
 		// }
 
 		if ($user->can('update', $item)) {
-			return view('backend.products.edit')->with('item', $item);
+			return view('backend.products.edit')->with([
+				'item' => $item,
+				'images' => $images,
+			]);
 		} else {
 			dd('bạn k có quyền edit');
 		}
@@ -329,6 +348,35 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		$images = $request->image;
+		if ($request->hasFile('images')) {
+			$attributes = [];
+			foreach ($images as $key => $value) {
+				$name_image = $value->getClientOriginalName();
+				$attribute['image.' . $key] = $name_image;
+
+			}
+		} else {
+			$attributes = [
+				'image' => 'Ảnh',
+			];
+		}
+		$path_images = [];
+		$info_images = [];
+		foreach ($images as $image) {
+
+			$type_image = $image->getClientOriginalExtension();
+			$name_image = $image->getClientOriginalName();
+			$name_img = pathinfo($name_image, PATHINFO_FILENAME);
+			$time = time();
+			$path = $image->storeAS('products', $name_img . '_' . $time . '.' . $type_image);
+			$path_images = $path;
+			$info_images[] = [
+				'name' => $name_image,
+				'url' => $path_images,
+			];
+
+		}
 		// Nhận dữ liệu từ $request
 		$name = $request->get('name');
 		$slug = $request->get('slug');
@@ -349,7 +397,14 @@ class ProductController extends Controller {
 		// Lưu dữ liệu
 		$product->save();
 		//Chuyển hướng đến trang danh sách
+		foreach ($info_images as $image) {
+			$img = new Image();
+			$img->name = $image['name'];
+			$img->path = $image['url'];
+			$img->product_id = $product->id;
+			$img->save();
 
+		}
 		$save = $product->save();
 		if ($save) {
 			$request->session()->flash('success_update', 'Cập nhật sản phẩm thành công' . '<br>');

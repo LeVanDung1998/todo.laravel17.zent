@@ -1,5 +1,7 @@
 @extends('backend.layout.master')
-
+@section('title')
+    Dashboard
+@endsection
 @section('content-header')
     <div class="container-fluid">
                 <div class="row mb-2">
@@ -39,7 +41,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>5300</h3>
+                                <h3>{{ $product }}</h3>
 
                                 <p>Sản phẩm</p>
                             </div>
@@ -54,7 +56,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>{{ $users }}</h3>
 
                                 <p>Người dùng</p>
                             </div>
@@ -106,40 +108,29 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Thời gian</th>
-                                        <th>Status</th>
+                                        <th>Thời gian nhập</th>
+                                        <th>Trạng thái</th>
                                         <th>Mô tả</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>183</td>
-                                        <td>John Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-success">Approved</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>219</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>657</td>
-                                        <td>Bob Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-primary">Approved</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>175</td>
-                                        <td>Mike Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-danger">Denied</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->created_at }}</td>
+                                            <td>
+                                                @if ($product->status==1)
+                                                    Mới nhập
+                                                @elseif($product->status==2)
+                                                    Mở bán
+                                                @else
+                                                    Hết hàng
+                                                @endif
+                                            </td>
+                                            <td>{{ $product->content }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

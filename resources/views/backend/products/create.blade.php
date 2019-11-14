@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 @section('title')
-    Product
+    Create Product
 @endsection
 @section('content-header')
 <!-- Content Header -->
@@ -33,7 +33,7 @@
                 </ul>
             </div>
         @endif --}}
-        <form role="form" method="post" action="{{ route('backend.product.store') }}" enctype="multipart/form-data">
+        <form role="form" method="post" action="{{ route('backend.product.store') }}" enctype="multipart/form-data" >
     @csrf
     <div class="card-body">
         <div class="form-group">
@@ -42,9 +42,9 @@
         </div>
 
 
-         @error('name')
+        @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
+        @enderror
         <div class="form-group">
             <label>Danh mục sản phẩm</label>
             <select name="category_id" class="form-control select2" style="width: 100%;">
@@ -54,6 +54,9 @@
                 @endforeach
             </select>
         </div>
+        @error('category_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
@@ -92,15 +95,9 @@
             </div>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+          @error('images')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <div class="form-group">
             <label>Trạng thái sản phẩm</label>
             <select name="status" class="form-control select2" style="width: 100%;">

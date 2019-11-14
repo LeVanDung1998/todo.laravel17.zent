@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +30,7 @@ class RegisterController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/home';
+	protected $redirectTo = '/login';
 
 	/**
 	 * Create a new controller instance.
@@ -37,6 +39,10 @@ class RegisterController extends Controller {
 	 */
 	public function __construct() {
 		$this->middleware('guest');
+	}
+
+	public function showRegistrationForm() {
+		return view('backend.auth.register');
 	}
 
 	/**
@@ -67,12 +73,8 @@ class RegisterController extends Controller {
 		]);
 	}
 
-	public function showRegistrationForm() {
-		//return view('auth.register');
-		return view('backend.auth.register');
-	}
-
 	public function register(Request $request) {
+		// dd($request->all());
 		$this->validator($request->all())->validate();
 
 		event(new Registered($user = $this->create($request->all())));
@@ -83,4 +85,18 @@ class RegisterController extends Controller {
 		?: redirect($this->redirectPath());
 	}
 
+	protected function guard() {
+		return Auth::guard();
+	}
+
+	/**
+	 * The user has been registered.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  mixed  $user
+	 * @return mixed
+	 */
+	protected function registered(Request $request, $user) {
+		//
+	}
 }

@@ -76,10 +76,10 @@
                                 <th>ID</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Danh mục</th>
-                                <th>User</th>
-                                <th>Thời gian</th>
+                                <th>Người tạo</th>
+                                <th>Thời gian nhập</th>
                                 <th>Hành động</th>
-                                <th>Mô tả</th>
+                                <th>Trạng thái</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -106,17 +106,44 @@
 
                                         <td>{{ $product->created_at }}</td>
                                         <td>
-                                            <a style="display: inline-block; width: 67px;" href="{{ route('backend.product.show',$product->id) }}" class="btn btn-success">Show</a>
-                                            <a style="display: inline-block; width: 67px;" href="{{ route('backend.product.edit',$product->id) }}" class="btn btn-warning">Edit</a>
+                                            <a style="display: inline-block; width: 35px;" href="{{ route('backend.product.show',$product->id) }}" class="btn btn-success"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                                            <a style="display: inline-block; width: 35px;" href="{{ route('backend.product.edit',$product->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger" style="display: inline-block; width: 35px;" href="{{ route('backend.product.destroy', $product->id) }}" data-toggle="modal" data-target="#exampleModalCenter-{{$product->id}}"><i class="fas fa-trash-alt"></i></a>
+                                            <div class="modal fade" id="exampleModalCenter-{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle" style="display: inline-block;">Bạn có chắc chắn xóa ko?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                             <h4>Bạn chắc chắn muốn xóa?</h4>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <form style="display: inline-block;" action="{{ route('backend.product.destroy', $product->id) }}" method="post" accept-charset="utf-8">
+                                                                @csrf
+                                                                {{method_field('delete')}}
+                                                                <button type="submit" class="btn btn-danger">Đồng ý</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                            </div>
 
-                                            <form style="display: inline-block;" action="{{ route('backend.product.destroy', $product->id) }}" method="post" accept-charset="utf-8">
-                                                @csrf
-                                                {{method_field('delete')}}
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
                                         </td>
-                                        <td>{{ $product->slug }}</td>
-                                    </tr>
+                                        </td>
+                                        <td>
+                                            @if ($product->status==1)
+                                                    Mới nhập
+                                                @elseif($product->status==2)
+                                                    Mở bán
+                                                @else
+                                                    Hết hàng
+                                                @endif</td>
+                                        </tr>
                                 @endforeach
 
 

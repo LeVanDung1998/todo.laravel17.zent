@@ -53,33 +53,50 @@ Route::group([
 		Route::put('/{id}/update', 'CategoryController@update')->name('backend.categories.update');
 		Route::delete('/{id}/delete', 'CategoryController@destroy')->name('backend.categories.destroy');
 	});
+	Route::group(['prefix' => 'slide'], function () {
+		Route::get('/', 'SlideController@index')->name('backend.slide.index');
+		Route::get('/create', 'SlideController@create')->name('backend.slide.create');
+		Route::post('/', 'SlideController@store')->name('backend.slide.store');
+		Route::get('/{id}', 'SlideController@show')->name('backend.slide.show');
+		Route::delete('/{id}/delete', 'SlideController@destroy')->name('backend.slide.destroy');
+	});
 });
-
-Route::group([
-	'namespace' => 'Frontend',
-	'prefix' => 'online',
-], function () {
-	Route::get('/', 'IndexController@index')->name('frontend.index');
-	Route::group(['prefix' => 'products'], function () {
-		Route::get('/', 'ProductController@index')->name('frontend.product.index');
-	});
-	Route::group(['prefix' => 'shop'], function () {
-		Route::get('/', 'ShopController@index')->name('frontend.shop.index');
-	});
-	//Quản lý danh mục sản phẩm
+// Route::get('add/{id}', 'Fontend\CartController@add');
+Route::prefix('user')->namespace('Fontend')->group(function () {
+	Route::get('/index', 'ProductController@index')->name('fontend.index');
+	//Route::get('/cart', 'ProductController@cart')->name('fontend.product.cart');
+	//Route::get('/contact', 'ProductController@contact')->name('fontend.product.contact');
+	Route::get('/product/{slug}', 'ProductController@product')->name('fontend.product.product');
+	//Route::get('/shop', 'ProductController@shop')->name('fontend.product.shop');
 	Route::group(['prefix' => 'cart'], function () {
-		Route::get('/', 'CartController@index')->name('frontend.cart.index');
+		Route::get('/', 'CartController@index')->name('fontend.cart.index');
+		Route::get('add/{id}', 'CartController@add')->name('fontend.cart.add');
 	});
+
+	Route::group(['prefix' => 'shop'], function () {
+		Route::get('/', 'ShopController@index')->name('fontend.shop.index');
+	});
+
 	Route::group(['prefix' => 'contact'], function () {
-		Route::get('/', 'ContactController@index')->name('contact.index');
+		Route::get('/', 'ContactController@index')->name('fontend.contact.index');
 	});
+	Route::group(['prefix' => 'category'], function () {
+		Route::get('/{id}', 'ProductController@category')->name('fontend.category.index');
+	});
+
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('getCache', 'HomeController@getCache');
 Route::get('set', 'SessionController@set');
 Route::get('get', 'SessionController@get');
 Route::get('get2', 'SessionController@get2');
 Route::get('setCookie', 'CookieController@set');
 Route::get('getCookie', 'CookieController@get');
+Route::get('logout', 'LoginController@logout');
+Route::prefix('logout')->namespace('Auth')->group(function () {
+	Route::get('/', 'LoginController@logout')->name('logout');
+
+});

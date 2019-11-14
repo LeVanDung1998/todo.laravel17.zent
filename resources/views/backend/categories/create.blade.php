@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 @section('title')
-    Product
+    Create Category
 @endsection
 @section('content-header')
 <!-- Content Header -->

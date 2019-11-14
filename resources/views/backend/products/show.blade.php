@@ -1,13 +1,13 @@
 @extends('backend.layout.master')
 @section('title')
-    Product
+    Detail Product
 @endsection
 @section('content-header')
 <!-- Content Header -->
 <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Tạo sản phẩm</h1>
+                <h1 class="m-0 text-dark">Chi tiết sản phẩm</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -37,11 +37,17 @@
             <input name="_method" type="hidden" value="PUT">
             {{--{{ method_field('PUT') }}--}}
             <div class="form-group">
-                <legend>Chi tiết sản phẩm</legend>
-            </div>
-            <div class="form-group">
                 <label class="control-label" for="todo">Tên sản phẩm:</label>
                 <input name="name" type="text" value="{{ $item->name }}" class="form-control" id="todo" placeholder="Enter todo">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="todo">Ảnh sản phẩm:</label><br>
+                {{-- @if ($images=='')
+                    sản phẩm này không có ảnh
+                @else --}}
+                @foreach ($images as $image)
+                    <img width="200px"  src="/storage/{{ $image->path }}"  alt="" style="margin-right: 30px">
+                @endforeach
             </div>
 
             <div class="form-group">
@@ -65,7 +71,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label" for="todo">Mô tả:</label>
-                <textarea name="content" class="form-control">{{ $item->content }}</textarea>
+                <textarea name="content" class="form-control">{!! $item->content !!}</textarea>
             </div>
             <div class="form-group">
                 <label class="control-label" for="todo">Trạng thái:</label>
@@ -82,10 +88,12 @@
                 <input name="created_at" type="text" value="{{ $item->created_at }}" class="form-control" id="todo" placeholder="Enter todo">
             </div>
 
-             <div class="form-group">
+            <div class="form-group">
                 <label class="control-label" for="todo">Ngày cập nhật:</label>
                 <input name="updated_at" type="text" value="{{ $item->updated_at }}" class="form-control" id="todo" placeholder="Enter todo">
             </div>
+
+
             {{-- <div class="form-group">
                 <label class="control-label" for="todo">Trạng thái:</label>
                 <select name="status" class="form-control">
