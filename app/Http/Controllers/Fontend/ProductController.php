@@ -12,12 +12,13 @@ class ProductController extends Controller {
 			return Category::get();
 		});
 		//$categories = Category::get(); //lấy tất cả category
-		$products5 = Product::WHERE('sale_price', '<', 20000)->limit(8)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
-		$products4 = Product::OrderBy('sale_price', 'ASC')->WHERE('sale_price', '<', 15000)->limit(8)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
-		$products3 = Product::OrderBy('sale_price', 'ASC')->WHERE('sale_price', '<', 15000)->limit(3)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
-		$products1 = Product::OrderBy('created_at', 'DESC')->limit(20)->get(); //sản phẩm có ngày tạo mới nhất
-		$products2 = Product::OrderBy('origin_price', 'DESC')->limit(10)->get(); //sản phẩm có giá cao nhất
-		$products = Product::OrderBy('view_count', 'DESC')->limit(8)->get(); //sắp xếp sản phẩm từ view cao->thấp
+		$products5 = Product::with('images')->WHERE('sale_price', '<', 20000)->limit(8)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
+
+		$products4 = Product::with('images')->OrderBy('sale_price', 'ASC')->WHERE('sale_price', '<', 15000)->limit(8)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
+		$products3 = Product::with('images')->OrderBy('sale_price', 'ASC')->WHERE('sale_price', '<', 15000)->limit(3)->get(); //sản phảm có số lượng từ thấp->cao và có giá là nhỏ hơn 15000
+		$products1 = Product::with('images')->OrderBy('created_at', 'DESC')->limit(20)->get(); //sản phẩm có ngày tạo mới nhất
+		$products2 = Product::with('images')->OrderBy('origin_price', 'DESC')->limit(10)->get(); //sản phẩm có giá cao nhất
+		$products = Product::with('images')->OrderBy('view_count', 'DESC')->limit(8)->get(); //sắp xếp sản phẩm từ view cao->thấp
 		$slides = Slide::get();
 		//dd($slides);
 
@@ -29,6 +30,7 @@ class ProductController extends Controller {
 			'products3' => $products3,
 			'products4' => $products4,
 			'products5' => $products5,
+			// 'images_5' => $images_5,
 			'slides' => $slides,
 		]);
 	}
@@ -37,7 +39,7 @@ class ProductController extends Controller {
 		$images = $product->images;
 		// dd($images);
 		// foreach ($images as $image) {
-		// 	dd($image);
+		//  dd($image);
 		// }
 		$categories = Category::get();
 		return view('fontend.product.product')->with([
@@ -51,7 +53,7 @@ class ProductController extends Controller {
 		//$product = Product::get();
 		$categories = Category::get(); //
 		// $categories = Cache::remember('categories', 10, function () {
-		// 	return Category::get();
+		//  return Category::get();
 		// }); //
 		$product10 = Category::with('product')->find($id);
 		$product_cate = $product10->product;

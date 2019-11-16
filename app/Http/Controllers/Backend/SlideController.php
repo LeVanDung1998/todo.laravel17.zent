@@ -103,6 +103,6 @@ class SlideController extends Controller {
 		// Xoá với id tương ứng
 		Slide::destroy($id);
 		// Chuyển hướng về trang danh sách
-		return redirect()->route('backend.slides.index');
+		return redirect()->route('backend.slide.index');
 	}
 }

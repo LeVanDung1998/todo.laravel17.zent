@@ -17,7 +17,15 @@
                                 @foreach ($all as $product)
                                     {{-- expr --}}
                                 <li class="cart_item clearfix">
-                                    <div class="cart_item_image"><img src="/fontend/images/shopping_cart.jpg" alt=""></div>
+                                    <div class="cart_item_image">
+                                      {{--   @foreach ($product->options as $key=> $option)
+                                        @if ($key==0) --}}
+                                             <img src="/storage/{{ $product->options->image }}" alt="">
+                                       {{--  @endif
+
+                                        @endforeach --}}
+
+                                    </div>
                                     <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                         <div class="cart_item_name cart_info_col">
                                             <div class="cart_item_title">Name</div>
@@ -33,11 +41,11 @@
                                         </div>
                                         <div class="cart_item_price cart_info_col">
                                             <div class="cart_item_title">Price</div>
-                                            <div class="cart_item_text">{{ $product->price }}</div>
+                                            <div class="cart_item_text">{{ number_format($product->price) }}</div>
                                         </div>
                                         <div class="cart_item_total cart_info_col">
                                             <div class="cart_item_title">Total</div>
-                                            <div class="cart_item_text">{{ $product->qty*$product->price }}</div>
+                                            <div class="cart_item_text">{{ number_format($product->qty*$product->price) }}</div>
                                         </div>
                                     </div>
                                 </li>
@@ -53,10 +61,10 @@
                             </div>
                         </div>
 
-                        <div class="cart_buttons">
+                       {{--  <div class="cart_buttons">
                             <button type="button" class="button cart_button_clear">Add to Cart</button>
                             <button type="button" class="button cart_button_checkout">Add to Cart</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

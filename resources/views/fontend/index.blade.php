@@ -119,7 +119,14 @@
                                 @foreach($products3 as $product3)
                                     <div class="owl-item deals_item">
                                         <a href="{{ route('fontend.product.product', $product3->slug) }}">
-                                            <div class="deals_image"><img src="/fontend/images/deals.png" alt=""></div>
+                                            <div class="deals_image">
+                                                 @foreach ($product3->images as $key=> $image)
+                                                        @if ($key==0)
+                                                             <img src="/storage/{{ $image->path }}" alt="">
+                                                        @endif
+
+                                                        @endforeach
+                                            </div>
                                             <div class="deals_content">
                                                 <div class="deals_info_line d-flex flex-row justify-content-start">
                                                     <div class="deals_item_category"><a href="#">{{ $product3->name }}</a></div>
@@ -194,7 +201,14 @@
                                             <div class="border_active"></div>
                                             <a href="{{ route('fontend.product.product', $product->slug) }}">
                                                 <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/fontend/images/featured_1.png" alt=""></div>
+                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                        @foreach ($product->images as $key=> $image)
+                                                        @if ($key==0)
+                                                             <img src="/storage/{{ $image->path }}" alt="">
+                                                        @endif
+
+                                                        @endforeach
+                                                    </div>
                                                     <div class="product_content">
                                                         <div class="product_price discount">${{ $product->origin_price }}</div>
                                                         <div class="product_name"><div><a href="{{ route('fontend.product.product', $product->slug) }}">{{ $product->name }}</a></div></div>
@@ -231,7 +245,14 @@
                                             <a href="{{ route('fontend.product.product', $product4->slug) }}">
                                                 <div class="border_active"></div>
                                                 <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/fontend/images/featured_1.png" alt=""></div>
+                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                         @foreach ($product4->images as $key=> $image)
+                                                        @if ($key==0)
+                                                             <img src="/storage/{{ $image->path }}" alt="">
+                                                        @endif
+
+                                                        @endforeach
+                                                    </div>
                                                     <div class="product_content">
                                                         <div class="product_price discount">${{ $product4->sale_price }}<span>${{ $product4->origin_price }}</span></div>
                                                         <div class="product_name"><div><a href="product.html">{{ $product4->name }}</a></div></div>
@@ -241,7 +262,7 @@
                                                                 <input type="radio" name="product_color" style="background:#000000">
                                                                 <input type="radio" name="product_color" style="background:#999999">
                                                             </div>
-                                                            <button class="product_cart_button">Add to Cart</button>
+                                                            <a style="display: block ;color:green," href="{{ route('fontend.cart.add', $product->id) }} " class="product_cart_button">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -269,7 +290,15 @@
                                             <a href="{{ route('fontend.product.product', $product5->slug) }}">
                                                 <div class="border_active"></div>
                                                 <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/fontend/images/featured_1.png" alt=""></div>
+                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                        @foreach ($product5->images as $key=> $image)
+                                                        @if ($key==0)
+                                                             <img src="/storage/{{ $image->path }}" alt="">
+                                                        @endif
+
+                                                        @endforeach
+
+                                                    </div>
                                                     <div class="product_content">
                                                         <div class="product_price discount">${{ $product5->sale_price }}</div>
                                                         <div class="product_name"><div><a href="product.html">{{ $product5->name }}</a></div></div>
@@ -279,7 +308,7 @@
                                                                 <input type="radio" name="product_color" style="background:#000000">
                                                                 <input type="radio" name="product_color" style="background:#999999">
                                                             </div>
-                                                            <button class="product_cart_button">Add to Cart</button>
+                                                            <a style="display: block ;color:green," href="{{ route('fontend.cart.add', $product->id) }} " class="product_cart_button">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -460,7 +489,14 @@
                                                 <a href="{{ route('fontend.product.product', $product1->slug) }}">
                                                     <div class="border_active"></div>
                                                     <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                                        <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/fontend/images/new_1.jpg" alt=""></div>
+                                                        <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                             @foreach ($product1->images as $key=> $image)
+                                                            @if ($key==0)
+                                                                 <img src="/storage/{{ $image->path }}" alt="">
+                                                            @endif
+
+                                                        @endforeach
+                                                        </div>
 
                                                         <div class="product_content">
                                                             <div class="product_price">{{ $product1->origin_price }}</div>
@@ -471,7 +507,7 @@
                                                                     <input type="radio" name="product_color" style="background:#000000">
                                                                     <input type="radio" name="product_color" style="background:#999999">
                                                                 </div>
-                                                                <button class="product_cart_button">Add to Cart</button>
+                                                                <a style="display: block ;color:green," href="{{ route('fontend.cart.add', $product->id) }} " class="product_cart_button">Add to Cart</a>
                                                             </div>
                                                         </div>
                                                         <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -1360,7 +1396,14 @@
                                     <div class="bestsellers_item discount">
                                         <a href="{{ route('fontend.product.product', $product2->slug) }}">
                                             <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-                                                <div class="bestsellers_image"><img src="/fontend/images/best_1.png" alt=""></div>
+                                                <div class="bestsellers_image">
+                                                     @foreach ($product2->images as $key=> $image)
+                                                            @if ($key==0)
+                                                                 <img src="/storage/{{ $image->path }}" alt="">
+                                                            @endif
+
+                                                        @endforeach
+                                                </div>
                                                 <div class="bestsellers_content">
                                                     <div class="bestsellers_category"><a href="#">{{ $product2->name }}</a></div>
                                                     <div class="bestsellers_name"><a href="product.html">Xiaomi Redmi Note 4</a></div>

@@ -45,17 +45,17 @@
                                 <div class="clearfix" style="z-index: 1000;">
 
                                     <!-- Product Quantity -->
-                                    <div class="product_quantity clearfix">
+                                    {{-- <div class="product_quantity clearfix">
                                         <span>Quantity: </span>
                                         <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
                                         <div class="quantity_buttons">
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
                                             <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Product Color -->
-                                    <ul class="product_color">
+                                    {{-- <ul class="product_color">
                                         <li>
                                             <span>Color: </span>
                                             <div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
@@ -67,13 +67,13 @@
                                                 <li><div class="color_mark" style="background: #000000;"></div></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
 
                                 </div>
 
                                 <div class="product_price">${{ $product->origin_price }}</div>
                                 <div class="button_container">
-                                    <button type="button" class="button cart_button">Add to Cart</button>
+                                    <a style="border-radius: 5px; padding-top: 15px; text-align: center; color:white;display: block ; background-color:green; width: 100px; height: 50px;" href="{{ route('fontend.cart.add', $product->id) }} " class="product_cart_button">Add to Cart</a>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
 

@@ -26,6 +26,7 @@ class CartController extends Controller {
 		//Cart::add([$product1, $product2]);
 		//dd($item);
 		$all = Cart::content();
+		//dd($all);
 		$categories = Cache::remember('categories', 10, function () {
 			return Category::get();
 		});
@@ -40,8 +41,10 @@ class CartController extends Controller {
 	public function add($id) {
 
 		//dd($id);
-		$product = Product::find($id);
-		Cart::add($product->id, $product->name, 1, $product->sale_price);
+		$product = Product::with('images')->find($id);
+		$images = $product->images;
+		//dd($image);
+		Cart::add($product->id, $product->name, 1, $product->sale_price, 0, ['image' => $images[0]->path]);
 		//dd($product);
 		return redirect()->route('fontend.cart.index');
 
